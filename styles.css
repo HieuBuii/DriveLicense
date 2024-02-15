@@ -1,0 +1,28 @@
+#form-container {
+  max-width: 400px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+#form-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2e2e2e;
+}
+
+#form-wrap {
+  height: calc(100% - 40px);
+}
+
+#mainModalLabel {
+  font-weight: bold;
+  color: #2e2e2e;
+}
+
+#modal-content {
+  text-align: center;
+}
+
+.input-group-text > i {
+  width: 14px;
+}
