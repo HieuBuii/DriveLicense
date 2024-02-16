@@ -1,17 +1,25 @@
 #form-container {
   max-width: 400px;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #form-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #2e2e2e;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  line-height: 40px;
+  background-color: #2196f3;
 }
 
-#form-wrap {
-  height: calc(100% - 40px);
+#form-registor {
+  margin-top: 40px;
 }
 
 #mainModalLabel {
@@ -25,4 +33,37 @@
 
 .input-group-text > i {
   width: 14px;
+}
+
+#footer {
+  border-top: 1px solid #e4e4e4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  gap: 4px;
+  z-index: 1056;
+  background-color: #fff;
+}
+
+#footer .footer-item {
+  width: 25%;
+  text-align: center;
+}
+#footer .footer-item .footer-item-bottom {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+#footer .footer-item .footer-item-top.actived {
+  color: #2196f3;
+}
+
+.custom-btn {
+  background-color: #2196f3;
+  color: white;
 }

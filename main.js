@@ -2,10 +2,27 @@ const submitBtn = document.getElementById("btn-submit");
 const myModal = new bootstrap.Modal(document.getElementById("mainModal"));
 const formContainer = document.getElementById("form-registor");
 const modalContent = document.getElementById("modal-content");
-// const userName = document.getElementById("username");
-// const dataOfBirth = document.getElementById("dataOfBirth");
-// const phone = document.getElementById("phone");
-// const rank = document.getElementById("rank");
+
+// Lấy tất cả các phần tử có class là "footer-item"
+const footerItems = document.querySelectorAll(".footer-item");
+
+// Lặp qua từng phần tử footer-item
+footerItems.forEach((item) => {
+  // Lắng nghe sự kiện click trên mỗi phần tử footer-item
+  item.addEventListener("click", function () {
+    // Lấy tất cả các phần tử có class là "footer-item-top"
+    const footerItemTops = document.querySelectorAll(".footer-item-top");
+
+    // Lặp qua từng phần tử footer-item-top
+    footerItemTops.forEach((top) => {
+      // Xóa class "actived" khỏi tất cả các footer-item-top
+      top.classList.remove("actived");
+    });
+
+    // Thêm class "actived" vào phần tử con của footer-item hiện tại có class là "footer-item-top"
+    this.querySelector(".footer-item-top").classList.add("actived");
+  });
+});
 
 function formatDate(dateString) {
   if (!dateString) return "";
@@ -27,7 +44,6 @@ const handleShowModal = (e) => {
   e.preventDefault();
   let formData = new FormData(e.target);
   const data = Object.fromEntries(formData);
-  console.log(data);
   modalContent.textContent = `
   Học viên ${data.username}, sinh ngày: ${formatDate(
     data.dataOfBirth
