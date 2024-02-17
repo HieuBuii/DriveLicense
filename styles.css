@@ -66,3 +66,12 @@
   background-color: #2196f3;
   color: white;
 }
+
+.modal-footer,
+.modal-header {
+  padding: 5px;
+}
+
+.modal-footer .custom-btn {
+  width: 120px;
+}
