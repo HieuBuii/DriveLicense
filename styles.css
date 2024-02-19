@@ -73,5 +73,16 @@
 }
 
 .modal-footer .custom-btn {
-  width: 120px;
+  width: 100px;
+}
+
+@media screen and (max-width: 600px) {
+  .modal-dialog {
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+  .modal-content {
+    max-width: 76vw;
+  }
 }
