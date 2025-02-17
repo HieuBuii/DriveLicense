@@ -8,14 +8,18 @@ const AuthModalHandler = {
     `;
     document.head.appendChild(style);
 
-    this.modal = new bootstrap.Modal(document.getElementById("mainModal"), {
-      backdrop: "static",
-      keyboard: false,
-    });
-    (this.CODE = "1191"),
-      (this.modalTitle = document.querySelector("#mainModalLabel"));
-    this.modalBody = document.querySelector(".modal-body");
-    this.modalFooter = document.querySelector(".modal-footer");
+    const mainModal = document.getElementById("mainModal");
+    if (!mainModal) return;
+
+    // Prevent closing modal when clicking outside
+    mainModal.setAttribute("data-bs-backdrop", "static");
+    mainModal.setAttribute("data-bs-keyboard", "false");
+
+    this.CODE = "1191";
+    this.modalTitle = mainModal.querySelector(".modal-title");
+    this.modalBody = mainModal.querySelector(".modal-body");
+    this.modalFooter = mainModal.querySelector(".modal-footer");
+
     const check = localStorage.getItem("authCode") === this.CODE;
     if (!check) {
       this.hideProtectedContent();
@@ -36,6 +40,8 @@ const AuthModalHandler = {
   },
 
   showAuthModal() {
+    if (!this.modalTitle || !this.modalBody || !this.modalFooter) return;
+
     this.modalTitle.textContent = "Xác minh";
 
     this.modalBody.innerHTML = `
@@ -95,17 +101,29 @@ const AuthModalHandler = {
 
     verifyBtn.addEventListener("click", () => this.verifyCode());
 
-    this.modal.show();
+    // Initialize modal with static backdrop
+    const bsModal = new bootstrap.Modal(document.getElementById("mainModal"), {
+      backdrop: "static",
+      keyboard: false,
+    });
+    bsModal.show();
   },
 
   verifyCode() {
     const input = document.getElementById("authCode");
+    if (!input) return;
     const code = input.value;
 
     if (code === this.CODE) {
       localStorage.setItem("authCode", code);
       this.showProtectedContent();
-      this.modal.hide();
+      const mainModal = document.getElementById("mainModal");
+      if (mainModal) {
+        const bsModal = bootstrap.Modal.getInstance(mainModal);
+        if (bsModal) {
+          bsModal.hide();
+        }
+      }
     } else {
       input.classList.add("is-invalid");
     }
