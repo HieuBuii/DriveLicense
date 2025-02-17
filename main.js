@@ -54,7 +54,7 @@ const FormHandler = {
           data.rank
         } vào lúc ${this.formatDateTime(data.bookingTime)} tại cơ sở ${
           data.address
-        }.<br><br>• Chú ý: Lịch hẹn đã được đặt lên hệ thống, vui lòng A/C đến đúng hẹn để công việc không bị gián đoạn. Xin cảm ơn!!!`
+        }.<br><br>• Chú ý : Lịch hẹn đã được đặt lên hệ thống, A/C vui lòng đến đúng hẹn để công việc không bị gián đoạn. Xin cảm ơn !!!`
       : `Học viên ${data.username}, sinh ngày: ${this.formatDate(
           data.dataOfBirth
         )}, số CCCD ${data.idNumber}, đã đăng ký ${
