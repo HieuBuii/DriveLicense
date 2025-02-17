@@ -17,16 +17,14 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
-    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div id="form-container" class="container protected-content">
-      <h1 id="form-title" class="mb-3 text-center">ĐĂNG KÝ THI BẰNG LÁI XE</h1>
-      <form class="row g-3 needs-validation" novalidate id="form-registor">
+      <h1 id="form-title" class="mb-3 text-center">
+        ĐẶT LỊCH HẸN ĐĂNG KÝ BẰNG LÁI XE
+      </h1>
+      <form class="row g-3 needs-validation" novalidate id="form-booking">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1"
             ><i class="fa-solid fa-user"></i
@@ -38,35 +36,6 @@
             class="form-control"
             placeholder="Họ và tên"
             aria-label="Username"
-            aria-describedby="basic-addon1"
-            required
-          />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">
-            <i class="fa-regular fa-calendar-days"></i>
-          </span>
-          <input
-            id="dataOfBirth"
-            name="dataOfBirth"
-            type="date"
-            class="form-control"
-            placeholder="Ngày tháng năm sinh"
-            aria-label="Date of birth"
-            aria-describedby="date-of-birth"
-          />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"
-            ><i class="fa-solid fa-id-card"></i
-          ></span>
-          <input
-            id="idNumber"
-            name="idNumber"
-            type="text"
-            class="form-control"
-            placeholder="Số CCCD"
-            aria-label="idNumber"
             aria-describedby="basic-addon1"
             required
           />
@@ -92,6 +61,36 @@
             <i class="fa-solid fa-money-check"></i>
           </span>
           <select
+            id="address"
+            name="address"
+            class="form-select"
+            aria-label="Select address"
+          >
+            <option value="">Nộp tại</option>
+            <option value="83 Trường Chinh">83 Trường Chinh</option>
+            <option value="144 Nguyễn Xiển">144 Nguyễn Xiển</option>
+            <option value="51 Nguyễn Hoàng">51 Nguyễn Hoàng</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">
+            <i class="fa-regular fa-calendar-days"></i>
+          </span>
+          <input
+            id="bookingTime"
+            name="bookingTime"
+            type="datetime-local"
+            class="form-control"
+            placeholder="Ngày và giờ nộp"
+            aria-label="Booking time"
+            aria-describedby="booking time"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">
+            <i class="fa-solid fa-money-check"></i>
+          </span>
+          <select
             id="rank"
             name="rank"
             class="form-select"
@@ -99,10 +98,9 @@
           >
             <option selected value="A1">A1</option>
             <option value="A">A</option>
-            <option value="B1">B1</option>
-            <option value="B">B</option>
+            <option value="B số sàn">B số sàn</option>
+            <option value="B số tự động">B số tự động</option>
             <option value="C">C</option>
-            <option value="Renew">Cấp lại</option>
           </select>
         </div>
         <button id="btn-submit" class="btn w-100 custom-btn" type="submit">
@@ -110,18 +108,18 @@
         </button>
       </form>
       <div id="footer">
-        <div class="footer-item">
+        <a href="index.html" class="footer-item footer-item-link">
           <div class="footer-item-top actived">
             <i class="fa-regular fa-id-card"></i>
           </div>
           <div class="footer-item-bottom">QL Hồ Sơ</div>
-        </div>
-        <a href="lich-hen.html" class="footer-item footer-item-link">
+        </a>
+        <div class="footer-item">
           <div class="footer-item-top">
             <i class="fa-solid fa-repeat"></i>
           </div>
           <div class="footer-item-bottom">QL Cấp Lại</div>
-        </a>
+        </div>
         <div class="footer-item">
           <div class="footer-item-top">
             <i class="fa-solid fa-magnifying-glass"></i>

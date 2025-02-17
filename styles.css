@@ -17,7 +17,8 @@
   background-color: #2196f3;
 }
 
-#form-registor {
+#form-registor,
+#form-booking {
   margin-top: 45px;
 }
 
@@ -52,6 +53,11 @@
 #footer .footer-item {
   width: 25%;
   text-align: center;
+  cursor: pointer;
+}
+#footer .footer-item.footer-item-link {
+  text-decoration: none;
+  color: #212529;
 }
 #footer .footer-item .footer-item-bottom {
   font-size: 11px;
@@ -67,6 +73,11 @@
   color: white;
 }
 
+.custom-btn:hover {
+  background-color: #108df4 !important;
+  color: white !important;
+}
+
 .modal-footer,
 .modal-header {
   padding: 5px;
@@ -74,6 +85,10 @@
 
 .modal-footer .custom-btn {
   width: 100px;
+}
+
+.top-5 {
+  top: 20px;
 }
 
 @media screen and (max-width: 600px) {

@@ -1,8 +1,3 @@
-const submitBtn = document.getElementById("btn-submit");
-const myModal = new bootstrap.Modal(document.getElementById("mainModal"));
-const formContainer = document.getElementById("form-registor");
-const modalContent = document.getElementById("modal-content");
-
 // Lấy tất cả các phần tử có class là "footer-item"
 const footerItems = document.querySelectorAll(".footer-item");
 
@@ -24,39 +19,82 @@ footerItems.forEach((item) => {
   });
 });
 
-function formatDate(dateString) {
-  if (!dateString) return "";
-  // Chuyển đổi chuỗi thành đối tượng Date
-  const date = new Date(dateString);
+const FormHandler = {
+  init() {
+    this.formContainer = document.getElementById("form-registor");
+    this.formBookingContainer = document.getElementById("form-booking");
+    this.modalContent = document.querySelector(".modal-body");
+    this.myModal = new bootstrap.Modal(document.getElementById("mainModal"));
 
-  // Lấy thông tin ngày, tháng và năm từ đối tượng Date
-  const day = date.getDate().toString().padStart(2, "0"); // Pad 0 nếu số ngày chỉ có 1 chữ số
-  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Tháng bắt đầu từ 0, cần cộng thêm 1
-  const year = date.getFullYear();
+    this.setupEventListeners();
+  },
 
-  // Kết hợp ngày, tháng và năm thành chuỗi định dạng "DD/MM/YYYY"
-  const formattedDate = `${day}/${month}/${year}`;
+  setupEventListeners() {
+    if (this.formContainer) {
+      this.formContainer.addEventListener("submit", (e) =>
+        this.handleShowModal(e, false)
+      );
+    }
 
-  return formattedDate;
-}
+    if (this.formBookingContainer) {
+      this.formBookingContainer.addEventListener("submit", (e) =>
+        this.handleShowModal(e, true)
+      );
+    }
+  },
 
-const handleShowModal = (e) => {
-  e.preventDefault();
-  let formData = new FormData(e.target);
-  const data = Object.fromEntries(formData);
-  modalContent.textContent = `
-  Học viên ${data.username}, sinh ngày: ${formatDate(
-    data.dataOfBirth
-  )}, số CCCD ${data.idNumber}, đã đăng ký ${
-    data.rank === "Renew"
-      ? "cấp lại bằng"
-      : `khóa thi bằng lái xe hạng ${data.rank}`
-  }
-  thành công. Mọi thông tin chi tiết về lịch học, thi, ký và bổ sung giấy tờ liên quan sẽ được thông báo qua SMS ${
-    data.phone
-  }. Xin cảm ơn!
-  `;
-  myModal.show();
+  handleShowModal(e, isBooking) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    this.modalContent.innerHTML = isBooking
+      ? `KH ${data.username}, SĐT: ${data.phone}, đặt lịch hẹn đăng ký hạng ${
+          data.rank
+        } vào lúc ${this.formatDateTime(data.bookingTime)} tại cơ sở ${
+          data.address
+        }.<br><br>• Chú ý: Lịch hẹn đã được đặt lên hệ thống, vui lòng A/C đến đúng hẹn để công việc không bị gián đoạn. Xin cảm ơn!!!`
+      : `Học viên ${data.username}, sinh ngày: ${this.formatDate(
+          data.dataOfBirth
+        )}, số CCCD ${data.idNumber}, đã đăng ký ${
+          data.rank === "Renew"
+            ? "cấp lại bằng"
+            : `khóa thi bằng lái xe hạng ${data.rank}`
+        } thành công. Mọi thông tin chi tiết về lịch học, thi, ký và bổ sung giấy tờ liên quan sẽ được thông báo qua SMS ${
+          data.phone
+        }. Xin cảm ơn!`;
+
+    this.myModal.show();
+  },
+
+  formatDate(dateString) {
+    if (!dateString) return "";
+    const [date] = dateString.split("T");
+    const [year, month, day] = date.split("-");
+    return `${parseInt(day)}/${parseInt(month)}/${year}`;
+  },
+
+  formatDateTime(dateTimeString) {
+    if (!dateTimeString) return "";
+
+    // Tách chuỗi datetime thành các phần
+    const [datePart, timePart] = dateTimeString.split("T");
+
+    // Xử lý phần ngày
+    const [_, month, day] = datePart.split("-");
+    const formattedDay = parseInt(day);
+    const formattedMonth = parseInt(month);
+
+    // Xử lý phần giờ
+    const [hour, minute] = timePart.split(":");
+    const formattedHour = hour.padStart(2, "0");
+    const formattedMinute = minute.padStart(2, "0");
+
+    // Kết hợp thành định dạng mong muốn
+    return `${formattedHour}H${formattedMinute} ngày ${formattedDay}/${formattedMonth}`;
+  },
 };
 
-formContainer.addEventListener("submit", handleShowModal);
+// Initialize the form handler
+FormHandler.init();
