@@ -50,10 +50,12 @@ const FormHandler = {
     const data = Object.fromEntries(formData);
 
     this.modalContent.innerHTML = isBooking
-      ? `KH ${data.username}, SĐT: ${data.phone}, đặt lịch hẹn đăng ký hạng ${
-          data.rank
-        } vào lúc ${this.formatDateTime(data.bookingTime)} tại cơ sở ${
-          data.address
+      ? `KH ${data.username}, SĐT: ${data.phone}, đặt lịch hẹn ${
+          data.rank === "Renew" ? "cấp lại bằng" : "đăng ký hạng " + data.rank
+        } vào lúc ${this.formatDateTime(data.bookingTime)} ${
+          data.address === "Online"
+            ? "bằng phương thức Online"
+            : "tại cơ sở " + data.address
         }.<br><br>• Chú ý : Lịch hẹn đã được đặt lên hệ thống, A/C vui lòng đến đúng hẹn để công việc không bị gián đoạn. Xin cảm ơn !!!`
       : `Học viên ${data.username}, sinh ngày: ${this.formatDate(
           data.dataOfBirth
