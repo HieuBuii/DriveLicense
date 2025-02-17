@@ -123,6 +123,7 @@ const AuthModalHandler = {
         if (bsModal) {
           bsModal.hide();
         }
+        window.location.reload();
       }
     } else {
       input.classList.add("is-invalid");
