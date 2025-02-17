@@ -50,7 +50,7 @@ const FormHandler = {
     const data = Object.fromEntries(formData);
 
     this.modalContent.innerHTML = isBooking
-      ? `KH ${data.username}, SDT: ${data.phone}, đặt lịch hẹn đăng ký hạng ${
+      ? `KH ${data.username}, SĐT: ${data.phone}, đặt lịch hẹn đăng ký hạng ${
           data.rank
         } vào lúc ${this.formatDateTime(data.bookingTime)} tại cơ sở ${
           data.address

@@ -1,31 +1,35 @@
 const AuthModalHandler = {
   init() {
+    const style = document.createElement("style");
+    style.textContent = `
+      .form-control.is-invalid {
+        background-image: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+
     this.modal = new bootstrap.Modal(document.getElementById("mainModal"), {
       backdrop: "static",
       keyboard: false,
     });
-    (this.CODE = "1234"),
+    (this.CODE = "1191"),
       (this.modalTitle = document.querySelector("#mainModalLabel"));
     this.modalBody = document.querySelector(".modal-body");
     this.modalFooter = document.querySelector(".modal-footer");
     const check = localStorage.getItem("authCode") === this.CODE;
     if (!check) {
-      // Ẩn tất cả content cần bảo vệ
       this.hideProtectedContent();
-      // Show modal xác thực ngay khi load trang
       this.showAuthModal();
     }
   },
 
   hideProtectedContent() {
-    // Thêm class 'd-none' vào các phần tử cần bảo vệ
     document.querySelectorAll(".protected-content").forEach((el) => {
       el.classList.add("d-none");
     });
   },
 
   showProtectedContent() {
-    // Hiện các phần tử được bảo vệ
     document.querySelectorAll(".protected-content").forEach((el) => {
       el.classList.remove("d-none");
     });
@@ -34,29 +38,50 @@ const AuthModalHandler = {
   showAuthModal() {
     this.modalTitle.textContent = "Xác minh";
 
-    // Tạo form xác thực
     this.modalBody.innerHTML = `
             <div class="text-center">
                 <p class="mb-3">Vui lòng nhập mã xác minh để tiếp tục</p>
-                <input type="password" 
-                       id="authCode" 
-                       class="form-control text-center" 
-                       placeholder="Nhập mã xác minh"
-                       maxlength="10">
-                <div class="invalid-feedback">Mã xác minh không đúng</div>
+                <div class="position-relative">
+                    <input type="password" 
+                           id="authCode" 
+                           class="form-control text-center" 
+                           placeholder="Nhập mã xác minh"
+                           maxlength="10">
+                    <button type="button" 
+                            class="btn btn-link position-absolute top-5 end-0 translate-middle-y text-decoration-none p-0"
+                            id="togglePassword"
+                            style="width: 46px;">
+                        <i class="bi bi-eye-slash"></i>
+                    </button>
+                    <div class="invalid-feedback">Mã xác minh không đúng</div>
+                </div>
             </div>
         `;
 
-    // Cập nhật footer
     this.modalFooter.innerHTML = `
             <button type="button" class="btn custom-btn" id="verifyBtn">
                 Xác nhận
             </button>
         `;
 
-    // Thêm event listeners
     const input = document.getElementById("authCode");
     const verifyBtn = document.getElementById("verifyBtn");
+    const toggleBtn = document.getElementById("togglePassword");
+
+    toggleBtn.addEventListener("click", () => {
+      const type =
+        input.getAttribute("type") === "password" ? "text" : "password";
+      input.setAttribute("type", type);
+
+      const icon = toggleBtn.querySelector("i");
+      if (type === "text") {
+        icon.classList.remove("bi-eye-slash");
+        icon.classList.add("bi-eye");
+      } else {
+        icon.classList.remove("bi-eye");
+        icon.classList.add("bi-eye-slash");
+      }
+    });
 
     input.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
@@ -64,9 +89,12 @@ const AuthModalHandler = {
       }
     });
 
+    input.addEventListener("input", () => {
+      input.classList.remove("is-invalid");
+    });
+
     verifyBtn.addEventListener("click", () => this.verifyCode());
 
-    // Show modal
     this.modal.show();
   },
 
@@ -80,14 +108,10 @@ const AuthModalHandler = {
       this.modal.hide();
     } else {
       input.classList.add("is-invalid");
-      input.addEventListener("change", () => {
-        input.classList.remove("is-invalid");
-      });
     }
   },
 };
 
-// Initialize khi document ready
 document.addEventListener("DOMContentLoaded", () => {
   AuthModalHandler.init();
 });
